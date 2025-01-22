@@ -6,5 +6,5 @@ public class ProjectileConfig : ScriptableObject
     public int Damage;
     public float Speed;
     public float Lifetime;
-    public GameObject ExplosionParticles;
+    public ParticleSystem ExplosionParticles;
 }

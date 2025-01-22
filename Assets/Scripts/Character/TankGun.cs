@@ -1,52 +1,65 @@
+﻿using System;
+using System.Threading.Tasks;
 using UnityEngine;
-using System.Collections;
+using Zenject;
 
-public class TankGun : MonoBehaviour
+public class TankGun
 {
-    [SerializeField]
-    private GunConfig gunConfig;
+    private readonly GunConfig _gunConfig;
+    private readonly Transform _gunTransform;
+    private readonly Projectile.Factory _projectileFactory;
+    private ParticleSystem _gunParticleSystem;
+    private bool isOnCooldown;
 
-    [SerializeField]
-    private ParticleSystem gunParticleSystem;
 
-    private bool isOnCooldown = false;
+    [Inject]
+    public TankGun(
+        GunConfig gunConfig, 
+        Transform gunTransform,
+        Projectile.Factory projectileFactory, 
+        ParticleSystem gunParticleSystem
+        )
+    {
+        _gunConfig = gunConfig;
+        _gunTransform = gunTransform;
+        _projectileFactory = projectileFactory;
+        _gunParticleSystem = gunParticleSystem;
+    }
 
-    public void Shoot()
+    public async Task Shoot()
     {
         if (isOnCooldown)
         {
-            Debug.Log("On cooldown!");
+            Debug.Log("Gun is on cooldown. Cannot shoot yet.");
             return;
         }
 
-        if (gunConfig.projectilePrefab != null)
+        if (_gunConfig.ProjectilePrefab != null)
         {
-            Instantiate(gunConfig.projectilePrefab, transform.position, transform.rotation);
-            Debug.Log("Projectile spawned!");
+            Projectile projectile = _projectileFactory.Create();
+            projectile.Initialize(_gunTransform.position, _gunTransform.rotation);
+
+            Debug.Log("Projectile created via Zenject!");
+        }
+        if(_gunParticleSystem != null)
+        {
+            _gunParticleSystem.Play();
+            Debug.Log("Projectiles emited");
         }
         else
         {
-            Debug.LogWarning("Projectile Prefab is not assigned in the configuration!");
+            Debug.Log("_gunParticleSystem is missing");
         }
 
-        if (gunParticleSystem != null)
-        {
-            gunParticleSystem.Play();
-            Debug.Log("Shooting particle effect activated!");
-        }
-        else
-        {
-            Debug.LogWarning("GunParticleSystem is not assigned!");
-        }
-
-        StartCoroutine(CooldownCoroutine());
+        isOnCooldown = true;
+        Debug.Log("Cooldown started...");
+        await Cooldown();
+        Debug.Log("Cooldown ended!");
     }
 
-    private IEnumerator CooldownCoroutine()
+    private async Task Cooldown()
     {
-        isOnCooldown = true;
-        yield return new WaitForSeconds(gunConfig.cooldownTime);
+        await Task.Delay(TimeSpan.FromSeconds(_gunConfig.CooldownTime));
         isOnCooldown = false;
-        Debug.Log("Cooldown finished!");
     }
 }

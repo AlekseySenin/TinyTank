@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d15518c2b43242044b9740500926c902, type: 3}
   m_Name: Player Gun Config
   m_EditorClassIdentifier: 
-  cooldownTime: 0
-  projectilePrefab: {fileID: 0}
+  CooldownTime: 1
+  ProjectilePrefab: {fileID: 3495309493190953206, guid: c62aecf107c70cb46b8d4aecbbd266e1,
+    type: 3}

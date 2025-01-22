@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b87a061d5d0ce8148802beb653ceae6d, type: 3}
-  m_Name: Player Projectile Config
+  m_Script: {fileID: 11500000, guid: a08c845a0aeceea4ebe9891054a3074e, type: 3}
+  m_Name: New Respawn Config
   m_EditorClassIdentifier: 
-  Damage: 1
-  Speed: 5
-  Lifetime: 10
-  ExplosionParticles: {fileID: 1802252756921852388, guid: 1ed81352c1423e547b33c982cc468bb1,
-    type: 3}
+  PlayerRespawnTime: 1
+  EnemyRespawnTime: 2

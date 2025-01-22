@@ -6,6 +6,7 @@ public class PlayerController : TankController
 {
     [Inject] private PlayerInputActions inputActions;
     [Inject] TankConfig _tankConfig;
+    [Inject] TankGun _tankGun;
 
     private float _turnSpeed;
     private float _moveSpeed;
@@ -93,7 +94,11 @@ public class PlayerController : TankController
 
     void Shoot(InputAction.CallbackContext context)
     {
-        Debug.Log("Bang-Bang!!!");
+        ShootAsync();
+    }
+    private async void ShootAsync()
+    {
+        await _tankGun.Shoot();
     }
 
     void TurnLeft(InputAction.CallbackContext context)
