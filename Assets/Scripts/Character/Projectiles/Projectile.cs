@@ -8,7 +8,6 @@ public class Projectile : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(gameObject.name);
         Destroy(gameObject, projectileConfig.Lifetime);
     }
 
@@ -19,7 +18,6 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collided with: " + collision.gameObject.name);
         HealthComponent healthComponent = collision.gameObject.GetComponent<HealthComponent>();
 
         if (healthComponent != null)
@@ -38,7 +36,6 @@ public class Projectile : MonoBehaviour
     
     public void Initialize(Vector3 position, Quaternion rotation)
     {
-        Debug.Log("projectile Initialized   " + position);
         transform.position = position;
         transform.rotation = rotation;
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 public class TankMover 
 {
     private Rigidbody _rigidbody;
-
+    [Inject]
     public TankMover(Rigidbody rigidbody)
     {
         _rigidbody = rigidbody;

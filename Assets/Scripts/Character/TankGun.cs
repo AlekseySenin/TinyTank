@@ -30,7 +30,6 @@ public class TankGun
     {
         if (isOnCooldown)
         {
-            Debug.Log("Gun is on cooldown. Cannot shoot yet.");
             return;
         }
 
@@ -39,22 +38,17 @@ public class TankGun
             Projectile projectile = _projectileFactory.Create();
             projectile.Initialize(_gunTransform.position, _gunTransform.rotation);
 
-            Debug.Log("Projectile created via Zenject!");
         }
         if(_gunParticleSystem != null)
         {
             _gunParticleSystem.Play();
-            Debug.Log("Projectiles emited");
         }
         else
         {
-            Debug.Log("_gunParticleSystem is missing");
         }
 
         isOnCooldown = true;
-        Debug.Log("Cooldown started...");
         await Cooldown();
-        Debug.Log("Cooldown ended!");
     }
 
     private async Task Cooldown()

@@ -1,17 +1,29 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RespawnPoint : MonoBehaviour
 {
     private List<Collider> collidersInTrigger = new List<Collider>();
-    public bool IsFree { get { return collidersInTrigger.Count == 0; } }
+    [SerializeField] private float detectionRadius = 5f;
+    [SerializeField] private LayerMask detectionLayer;
 
-    private void OnTriggerEnter(Collider other)
+    public bool IsVacant()
     {
-        collidersInTrigger.Add(other);
+        Collider[] overlappingColliders = Physics.OverlapSphere(transform.position, detectionRadius, detectionLayer);
+
+        List<Collider> overlappingHealthObjects = overlappingColliders.ToList().FindAll(a => a.GetComponent<HealthComponent>());
+        if (overlappingHealthObjects.Count == 0)
+        {
+            Debug.Log(gameObject.name+ "IsVacant");
+            return true;
+        }
+        else
+        {
+            Debug.Log(gameObject.name + "IsNOTVacant");
+
+            return false;
+        }
     }
-    private void OnTriggerExit(Collider other)
-    {
-        collidersInTrigger.Remove(other);
-    }
+   
 }

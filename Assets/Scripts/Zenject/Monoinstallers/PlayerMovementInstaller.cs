@@ -21,8 +21,8 @@ public class PlayerMovementInstaller : MonoInstaller
     void BindTankMover()
     {
 
-        TankMover tankMover = new TankMover(_rigidbody);
-        Container.Bind<TankMover>().FromInstance(tankMover).AsSingle().NonLazy();
+        
+        Container.Bind<TankMover>().AsSingle().NonLazy();
     }
     void BindTankConfig()
     {
