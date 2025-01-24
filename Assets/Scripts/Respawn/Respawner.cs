@@ -1,25 +1,26 @@
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
 public class Respawner 
 {
      private List<RespawnPoint> _respawnPoints;
-     private RespawnConfig _respawnConfig;
+     private LevelConfig _LevelConfig;
      private List<HealthComponent> _enemyHealthComponents;
      private HealthComponent _playerHealthComponent;
 
     [Inject] public Respawner(List<RespawnPoint> respawnPoints,
-                                RespawnConfig respawnConfig,
+                                LevelConfig config,
                                     List<HealthComponent> enemyHealthComponents,
                                         HealthComponent playerHealthComponent)
     {
         _respawnPoints = respawnPoints;
-        _respawnConfig = respawnConfig;
+        _LevelConfig = config;
         _enemyHealthComponents = enemyHealthComponents;
         _playerHealthComponent = playerHealthComponent;
-        BindEnemyActions();
+        BindActions();
+        
         Start();
     }
     ~Respawner()
@@ -31,7 +32,6 @@ public class Respawner
         await TrySpawnPlayer(1.0f);
         await TrySpawnEnemies(1.0f);
     }
-
     public async Task TrySpawnPlayer(float spawnTime)
     {
         await Task.Delay((int)(spawnTime * 1000));
@@ -39,14 +39,13 @@ public class Respawner
         if (AreFreeSpawnPoints())
         {
             SpawnObject(_playerHealthComponent, GetRandomFreeRespawnPoint());
-            await Task.Delay((int)(_respawnConfig.PlayerRespawnDelay * 1000));
+            await Task.Delay((int)(_LevelConfig.PlayerRespawnDelay * 1000));
         }
         else
         {
-            await TrySpawnPlayer(_respawnConfig.PlayerRespawnTime);
+            await TrySpawnPlayer(_LevelConfig.PlayerRespawnTime);
         }
     }
-
     public async Task TrySpawnEnemies(float delay)
     {
         await Task.Delay((int)(delay * 1000));
@@ -65,17 +64,16 @@ public class Respawner
                     return;
                 }
                 SpawnObject(GetRandomDeadEnemy(), GetRandomFreeRespawnPoint());
-                await Task.Delay((int)(_respawnConfig.EnemyRespawnDelay * 1000));
+                await Task.Delay((int)(_LevelConfig.EnemyRespawnDelay * 1000));
             }
         }
 
         if (!AreAllEnemiesAlive())
         {
 
-            await TrySpawnEnemies(_respawnConfig.PlayerRespawnTime);
+            await TrySpawnEnemies(_LevelConfig.PlayerRespawnTime);
         }
     }
-
     private void SpawnObject(HealthComponent healthComponent, RespawnPoint respawnPoint)
     {
         healthComponent.Object.transform.position = respawnPoint.transform.position;
@@ -89,8 +87,7 @@ public class Respawner
             int randomPoint = Random.Range(0, freeRespawnPoints.Count);
             return freeRespawnPoints[randomPoint];
 
-    }
-    
+    }  
     private HealthComponent GetRandomDeadEnemy()
     {
         List<HealthComponent> deadEnemies = GetAllDeadEnemies();
@@ -101,8 +98,7 @@ public class Respawner
         }
 
         return null;
-    }
-   
+    } 
     private bool AreAllEnemiesAlive()
     {
         return GetAllDeadEnemies().Count == 0;
@@ -127,11 +123,18 @@ public class Respawner
     {
         if (AreAllEnemiesDead())
         {
-        await TrySpawnEnemies(_respawnConfig.EnemyRespawnTime);
+        await TrySpawnEnemies(_LevelConfig.EnemyRespawnTime);
         }
     }
-    private void BindEnemyActions()
+    private async void ProcessPlayerDeath()
     {
+        await TrySpawnPlayer(_LevelConfig.PlayerRespawnTime);
+    }
+
+    private void BindActions()
+    {
+        _playerHealthComponent.OnDeath += ProcessPlayerDeath;
+
         foreach (var item in _enemyHealthComponents)
         {
             item.OnDeath += ProcessEnemyDeath;
@@ -139,6 +142,8 @@ public class Respawner
     }
     private void UnbindEnemyActions()
     {
+        _playerHealthComponent.OnDeath -= ProcessPlayerDeath;
+
         foreach (var item in _enemyHealthComponents)
         {
             item.OnDeath += ProcessEnemyDeath;

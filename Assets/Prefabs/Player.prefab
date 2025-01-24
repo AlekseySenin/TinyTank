@@ -175,8 +175,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2210826999836126918}
-  - component: {fileID: 1167641037964609908}
-  - component: {fileID: 50865898850471309}
   m_Layer: 0
   m_Name: Player_Tank _GO-07 v01
   m_TagString: Untagged
@@ -203,54 +201,6 @@ Transform:
   - {fileID: 1018109390342575791}
   m_Father: {fileID: 4503067292878024676}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1167641037964609908
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2587977199938735521}
-  m_Material: {fileID: 13400000, guid: eccefca74ebecda48a61b77df7f76137, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 0.48344946, z: 1}
-  m_Center: {x: 0, y: 0.25827527, z: 0}
---- !u!54 &50865898850471309
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2587977199938735521}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &2649766130871569532
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,7 +717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72bbc7d25d95b454e95d1812ab40b24a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 50865898850471309}
+  _rigidbody: {fileID: 3218724944968783254}
   _tankConfig: {fileID: 11400000, guid: 5a27af51ce773a2458a1167dd931673b, type: 2}
 --- !u!1 &5601329956785103635
 GameObject:
@@ -864,6 +814,8 @@ GameObject:
   - component: {fileID: 941175447829003863}
   - component: {fileID: 127451751451562210}
   - component: {fileID: 1468664799223300148}
+  - component: {fileID: 6968675085261859059}
+  - component: {fileID: 3218724944968783254}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -916,7 +868,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6146844557866920577}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd0cfdd2a7b450442ada516fa1245bf7, type: 3}
+  m_Script: {fileID: 11500000, guid: f827481832339094fb0387c347cbab24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1468664799223300148
@@ -933,6 +885,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthOnStart: 1
   _object: {fileID: 6146844557866920577}
+--- !u!65 &6968675085261859059
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6146844557866920577}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.48488104, z: 1.0012176}
+  m_Center: {x: 0, y: 0.25755948, z: -0.00060880184}
+--- !u!54 &3218724944968783254
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6146844557866920577}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7535904524891227576
 GameObject:
   m_ObjectHideFlags: 0

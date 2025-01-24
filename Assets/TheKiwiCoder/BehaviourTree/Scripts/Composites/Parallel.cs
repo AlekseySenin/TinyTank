@@ -35,6 +35,7 @@ namespace TheKiwiCoder {
                 }
             }
 
+            State state = stillRunning ? State.Running : State.Success;
             return stillRunning ? State.Running : State.Success;
         }
 

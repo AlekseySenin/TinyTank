@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f6e1b474bf28db418552f66cb787b80, type: 3}
+  m_Name: Level Config
+  m_EditorClassIdentifier: 
+  PlayerRespawnDelay: 0.1
+  PlayerRespawnTime: 1
+  EnemyRespawnDelay: 0.1
+  EnemyRespawnTime: 1
+  PlayerPrefab: {fileID: 1468664799223300148, guid: 781ccff7070dd7f43a25a6739992391c,
+    type: 3}
+  EnemyPrefabs:
+  - {fileID: 7746880055082362347, guid: f11337efeb034c74f97de4ab1dd8a6a9, type: 3}
+  - {fileID: 7746880055082362347, guid: f11337efeb034c74f97de4ab1dd8a6a9, type: 3}
+  - {fileID: 7746880055082362347, guid: f11337efeb034c74f97de4ab1dd8a6a9, type: 3}
